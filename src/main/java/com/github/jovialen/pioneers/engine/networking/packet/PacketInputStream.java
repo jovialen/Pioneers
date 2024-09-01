@@ -1,4 +1,4 @@
-package com.github.jovialen.pioneers.networking.packet;
+package com.github.jovialen.pioneers.engine.networking.packet;
 
 import java.io.DataInputStream;
 import java.io.IOException;

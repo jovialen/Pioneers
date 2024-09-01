@@ -1,15 +1,15 @@
-package com.github.jovialen.pioneers.networking.server;
+package com.github.jovialen.pioneers.engine.networking.server;
 
-import com.github.jovialen.pioneers.networking.client.Client;
-import com.github.jovialen.pioneers.networking.event.ClientConnectedEvent;
-import com.github.jovialen.pioneers.networking.event.ClientDisconnectedEvent;
-import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.github.jovialen.pioneers.engine.networking.auth.PasswordAuthenticator;
+import com.github.jovialen.pioneers.engine.networking.client.Client;
+import com.github.jovialen.pioneers.engine.networking.event.ClientConnectedEvent;
+import com.github.jovialen.pioneers.engine.networking.event.ClientDisconnectedEvent;
+import com.github.jovialen.pioneers.engine.networking.packet.Packet;
 import com.google.common.eventbus.EventBus;
 import org.tinylog.Logger;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,30 +17,25 @@ public class Server {
     private final EventBus eventBus;
     private final ServerSocket socket;
     private final List<Client> clients = new ArrayList<>();
-    private final Thread acceptorThread;
+    private final Acceptor acceptor;
 
-    public Server(int port, EventBus eventBus, Acceptor acceptor) throws IOException {
+    public Server(int port, EventBus eventBus, PasswordAuthenticator auth) throws IOException {
         Logger.info("Opening server on port {}", port);
         this.eventBus = eventBus;
         this.socket = new ServerSocket(port);
-        this.acceptorThread = acceptor.start(this);
+        this.acceptor = new Acceptor(this, auth);
     }
 
     public void close() {
         Logger.info("Closing server {}", this);
 
         disconnectAll();
+        acceptor.stop();
 
         try {
             socket.close();
         } catch (IOException e) {
             Logger.warn("Failed to close server: {}", e);
-        }
-
-        try {
-            acceptorThread.join(Duration.ofMillis(500));
-        } catch (InterruptedException e) {
-            Logger.warn("Failed to join with server acceptor thread: {}", e);
         }
     }
 

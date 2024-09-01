@@ -1,9 +1,11 @@
-package com.github.jovialen.pioneers.networking.server;
+package com.github.jovialen.pioneers.demo.echo;
 
-import com.github.jovialen.pioneers.networking.encoder.StringEncoder;
-import com.github.jovialen.pioneers.networking.event.ClientConnectedEvent;
-import com.github.jovialen.pioneers.networking.event.ClientDisconnectedEvent;
-import com.github.jovialen.pioneers.networking.event.PacketReceivedEvent;
+import com.github.jovialen.pioneers.engine.networking.auth.PasswordAuthenticator;
+import com.github.jovialen.pioneers.engine.networking.encoder.StringEncoder;
+import com.github.jovialen.pioneers.engine.networking.event.ClientConnectedEvent;
+import com.github.jovialen.pioneers.engine.networking.event.ClientDisconnectedEvent;
+import com.github.jovialen.pioneers.engine.networking.event.PacketReceivedEvent;
+import com.github.jovialen.pioneers.engine.networking.server.Server;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.tinylog.Logger;
@@ -27,7 +29,7 @@ public class EchoServer {
         String password = reader.readLine();
         Logger.info("Using password: {}", password);
 
-        server = new Server(8181, eventBus, new SecureAcceptor(password));
+        server = new Server(8181, eventBus, new PasswordAuthenticator(password));
         encoder = new StringEncoder();
     }
 

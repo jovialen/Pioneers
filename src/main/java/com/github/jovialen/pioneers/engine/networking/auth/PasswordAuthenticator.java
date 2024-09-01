@@ -1,7 +1,8 @@
-package com.github.jovialen.pioneers.networking.server;
+package com.github.jovialen.pioneers.engine.networking.auth;
 
-import com.github.jovialen.pioneers.networking.client.Client;
-import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.github.jovialen.pioneers.engine.networking.client.Client;
+import com.github.jovialen.pioneers.engine.networking.packet.Packet;
+import com.github.jovialen.pioneers.engine.networking.server.Server;
 import org.tinylog.Logger;
 
 import javax.crypto.SecretKeyFactory;
@@ -13,13 +14,9 @@ import java.security.spec.KeySpec;
 import java.time.Duration;
 import java.util.Arrays;
 
-public class SecureAcceptor extends Acceptor {
-    public static final int SALT_LENGTH = 64;
-
+public class PasswordAuthenticator implements Authenticator {
+    private static final int SALT_LENGTH = 64;
     private static final SecretKeyFactory factory;
-
-    private final String password;
-
     static {
         try {
             factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -28,12 +25,14 @@ public class SecureAcceptor extends Acceptor {
         }
     }
 
-    public SecureAcceptor(String password) {
+    private final String password;
+
+    public PasswordAuthenticator(String password) {
         this.password = password;
     }
 
     @Override
-    public boolean authenticateClient(Client client) {
+    public boolean authenticateClient(Server server, Client client) {
         SecureRandom random = new SecureRandom();
 
         // Generate and send salt

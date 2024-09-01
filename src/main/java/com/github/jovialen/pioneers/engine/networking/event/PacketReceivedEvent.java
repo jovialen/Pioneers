@@ -1,7 +1,7 @@
-package com.github.jovialen.pioneers.networking.event;
+package com.github.jovialen.pioneers.engine.networking.event;
 
-import com.github.jovialen.pioneers.networking.client.Client;
-import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.github.jovialen.pioneers.engine.networking.client.Client;
+import com.github.jovialen.pioneers.engine.networking.packet.Packet;
 
 public class PacketReceivedEvent {
     public Client client;

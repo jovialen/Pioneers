@@ -1,6 +1,6 @@
-package com.github.jovialen.pioneers.networking.event;
+package com.github.jovialen.pioneers.engine.networking.event;
 
-import com.github.jovialen.pioneers.networking.server.Server;
+import com.github.jovialen.pioneers.engine.networking.server.Server;
 
 public class ServerEvent {
     public Server server;

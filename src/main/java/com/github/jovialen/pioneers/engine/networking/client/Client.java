@@ -1,10 +1,10 @@
-package com.github.jovialen.pioneers.networking.client;
+package com.github.jovialen.pioneers.engine.networking.client;
 
-import com.github.jovialen.pioneers.networking.event.PacketReceivedEvent;
-import com.github.jovialen.pioneers.networking.packet.Packet;
-import com.github.jovialen.pioneers.networking.packet.PacketInputStream;
-import com.github.jovialen.pioneers.networking.packet.PacketOutputStream;
-import com.github.jovialen.pioneers.networking.server.Acceptor;
+import com.github.jovialen.pioneers.engine.networking.auth.Authenticator;
+import com.github.jovialen.pioneers.engine.networking.event.PacketReceivedEvent;
+import com.github.jovialen.pioneers.engine.networking.packet.Packet;
+import com.github.jovialen.pioneers.engine.networking.packet.PacketInputStream;
+import com.github.jovialen.pioneers.engine.networking.packet.PacketOutputStream;
 import com.google.common.eventbus.EventBus;
 import org.tinylog.Logger;
 
@@ -82,11 +82,11 @@ public class Client {
         return "Client(" + socket.getRemoteSocketAddress().toString() + ")";
     }
 
-    public static Client connectToServer(String host, int port, EventBus eventBus, Acceptor acceptor) {
+    public static Client connectToServer(String host, int port, EventBus eventBus, Authenticator auth) {
         try {
             Logger.info("Attempting to connect to server at {}:{}", host, port);
             Client client = new Client(eventBus, new Socket(host, port));
-            if (acceptor.authenticateServer(client)) {
+            if (auth.authenticateServer(client)) {
                 Logger.info("Connection was successful.");
                 return client;
             } else {

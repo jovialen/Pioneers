@@ -1,6 +1,6 @@
-package com.github.jovialen.pioneers.networking.encoder;
+package com.github.jovialen.pioneers.engine.networking.encoder;
 
-import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.github.jovialen.pioneers.engine.networking.packet.Packet;
 
 import java.nio.charset.StandardCharsets;
 
