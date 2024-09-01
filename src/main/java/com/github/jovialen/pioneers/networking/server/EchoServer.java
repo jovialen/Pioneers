@@ -1,25 +1,43 @@
 package com.github.jovialen.pioneers.networking.server;
 
-import com.github.jovialen.pioneers.networking.client.Client;
 import com.github.jovialen.pioneers.networking.encoder.StringEncoder;
-import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.github.jovialen.pioneers.networking.event.ClientConnectedEvent;
+import com.github.jovialen.pioneers.networking.event.ClientDisconnectedEvent;
+import com.github.jovialen.pioneers.networking.event.PacketReceivedEvent;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import org.tinylog.Logger;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.Duration;
 
 public class EchoServer {
-    public static void main(String[] args) throws IOException, InterruptedException {
-        Server server = new Server(8181, new SecureAcceptor("password"));
-        StringEncoder encoder = new StringEncoder();
+    private final EventBus eventBus;
+    private final Server server;
+    private final StringEncoder encoder;
 
-        System.out.println("Waiting for clients to connect to the server");
-        while (server.getClients().isEmpty()) {
-            if (!server.isOpen()) {
-                return;
-            }
-        }
+    public EchoServer() throws IOException {
+        eventBus = new EventBus();
+        eventBus.register(this);
 
-        System.out.println("Starting server...");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Server password: ");
+        String password = reader.readLine();
+        Logger.info("Using password: {}", password);
+
+        server = new Server(8181, eventBus, new SecureAcceptor(password));
+        encoder = new StringEncoder();
+    }
+
+    public void close() {
+        server.close();
+        eventBus.unregister(this);
+    }
+
+    public void run() throws InterruptedException {
+        Logger.info("Starting server...");
         for (int tick = 0; !server.getClients().isEmpty(); tick++) {
             boolean debugTick = tick % 60 == 0;
 
@@ -28,21 +46,38 @@ public class EchoServer {
                 System.out.println(server.getClients().size() + " clients currently connected");
             }
 
-            Packet packet;
-            for (Client client : server.getClients()) {
-                if (debugTick) {
-                    System.out.println(client.getIncoming().size() + " packets pending from " + client);
-                }
-
-                while ((packet = client.receive()) != null) {
-                    System.out.println(client + ": " + encoder.decode(packet));
-                    server.broadcastExcept(client, packet);
-                }
-            }
-
             Thread.sleep(Duration.ofMillis(16));
         }
+    }
 
-        server.close();
+    public void waitForClient() {
+        Logger.info("Waiting for clients to connect to the server");
+        while (server.getClients().isEmpty()) {
+            if (!server.isOpen()) {
+                return;
+            }
+        }
+    }
+
+    @Subscribe
+    public void onClientConnect(ClientConnectedEvent event) {
+        server.broadcastExcept(event.getClient(), encoder.encode("A new client has connected to the server"));
+    }
+
+    @Subscribe
+    public void onClientDisconnect(ClientDisconnectedEvent event) {
+        server.broadcast(encoder.encode("A client has disconnected from the server"));
+    }
+
+    @Subscribe
+    public void onPacketReceived(PacketReceivedEvent event) {
+        server.broadcastExcept(event.getClient(), event.getPacket());
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        EchoServer echoServer = new EchoServer();
+        echoServer.waitForClient();
+        echoServer.run();
+        echoServer.close();
     }
 }

@@ -18,12 +18,11 @@ public abstract class Acceptor {
             try {
                 Logger.trace("Waiting for client to connect to {}", server);
                 Socket remote = server.getSocket().accept();
-                Client connectingClient = new Client(remote);
+                Client connectingClient = new Client(server.getEventBus(), remote);
 
                 Logger.debug("{} is attempting to connect to the server", connectingClient);
                 if (authenticateClient(connectingClient)) {
-                    Logger.info("{} has connected to the server", connectingClient);
-                    server.getClients().add(connectingClient);
+                    server.connect(connectingClient);
                 } else {
                     Logger.warn("Client was refused");
                     connectingClient.disconnect();

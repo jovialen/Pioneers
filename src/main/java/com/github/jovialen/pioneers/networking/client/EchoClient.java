@@ -1,42 +1,61 @@
 package com.github.jovialen.pioneers.networking.client;
 
 import com.github.jovialen.pioneers.networking.encoder.StringEncoder;
+import com.github.jovialen.pioneers.networking.event.PacketReceivedEvent;
 import com.github.jovialen.pioneers.networking.server.SecureAcceptor;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class EchoClient {
-    public static void main(String[] args) throws IOException {
-        Client client = Client.connectToServer("localhost", 8181, new SecureAcceptor("password"));
-        StringEncoder encoder = new StringEncoder();
+    private final EventBus eventBus;
+    private final Client client;
+    private final StringEncoder encoder;
+    private final BufferedReader reader;
 
-        if (client == null) {
-            System.err.println("Failed to create client");
-            return;
-        }
+    public EchoClient(String host, int port) throws IOException {
+        this.eventBus = new EventBus();
+        eventBus.register(this);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Password: ");
+        reader = new BufferedReader(new InputStreamReader(System.in));
+        String password = reader.readLine();
 
+        this.encoder = new StringEncoder();
+        this.client = Client.connectToServer(host, port, eventBus, new SecureAcceptor(password));
+    }
+
+    public void disconnect() throws IOException {
+        client.disconnect();
+        reader.close();
+        eventBus.unregister(this);
+    }
+
+    public void run() throws IOException {
         while (client.isConnected()) {
-            String line = reader.readLine();
+            String input = reader.readLine();
 
-            if (line.equals("quit")) {
+            if (input.equals("quit")) {
                 break;
             }
 
-            if (!line.isEmpty()) {
-                client.send(encoder.encode(line));
-            }
-
-            String received;
-            while ((received = encoder.decode(client.receive())) != null) {
-                System.out.println(received);
+            if (!input.isEmpty()) {
+                client.send(encoder.encode(input));
             }
         }
+    }
 
-        reader.close();
+    @Subscribe
+    public void onPacketReceived(PacketReceivedEvent event) {
+        System.out.println(encoder.decode(event.packet));
+    }
+
+    public static void main(String[] args) throws IOException {
+        EchoClient client = new EchoClient("localhost", 8181);
+        client.run();
         client.disconnect();
     }
 }

@@ -1,9 +1,11 @@
 package com.github.jovialen.pioneers.networking.client;
 
+import com.github.jovialen.pioneers.networking.event.PacketReceivedEvent;
 import com.github.jovialen.pioneers.networking.packet.Packet;
 import com.github.jovialen.pioneers.networking.packet.PacketInputStream;
 import com.github.jovialen.pioneers.networking.packet.PacketOutputStream;
 import com.github.jovialen.pioneers.networking.server.Acceptor;
+import com.google.common.eventbus.EventBus;
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class Client {
+    private final EventBus eventBus;
     private final Socket socket;
     private final PacketInputStream reader;
     private final PacketOutputStream writer;
@@ -22,7 +25,8 @@ public class Client {
     private final LinkedBlockingDeque<Packet> incoming = new LinkedBlockingDeque<>();
     private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
 
-    public Client(Socket socket) throws IOException {
+    public Client(EventBus eventBus, Socket socket) throws IOException {
+        this.eventBus = eventBus;
         this.socket = socket;
         this.reader = new PacketInputStream(socket.getInputStream());
         this.writer = new PacketOutputStream(socket.getOutputStream());
@@ -78,10 +82,10 @@ public class Client {
         return "Client(" + socket.getRemoteSocketAddress().toString() + ")";
     }
 
-    public static Client connectToServer(String host, int port, Acceptor acceptor) {
+    public static Client connectToServer(String host, int port, EventBus eventBus, Acceptor acceptor) {
         try {
             Logger.info("Attempting to connect to server at {}:{}", host, port);
-            Client client = new Client(new Socket(host, port));
+            Client client = new Client(eventBus, new Socket(host, port));
             if (acceptor.authenticateServer(client)) {
                 Logger.info("Connection was successful.");
                 return client;
@@ -105,6 +109,8 @@ public class Client {
         try {
             Packet packet = reader.readPacket();
             incoming.add(packet);
+
+            eventBus.post(new PacketReceivedEvent(this, packet));
 
             primeReadPacket();
         } catch (IOException e) {

@@ -1,7 +1,10 @@
 package com.github.jovialen.pioneers.networking.server;
 
 import com.github.jovialen.pioneers.networking.client.Client;
+import com.github.jovialen.pioneers.networking.event.ClientConnectedEvent;
+import com.github.jovialen.pioneers.networking.event.ClientDisconnectedEvent;
 import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.google.common.eventbus.EventBus;
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -11,14 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
+    private final EventBus eventBus;
     private final ServerSocket socket;
     private final List<Client> clients = new ArrayList<>();
     private final Thread acceptorThread;
 
-    public Server(int port, Acceptor acceptor) throws IOException {
+    public Server(int port, EventBus eventBus, Acceptor acceptor) throws IOException {
         Logger.info("Opening server on port {}", port);
-        socket = new ServerSocket(port);
-        acceptorThread = acceptor.start(this);
+        this.eventBus = eventBus;
+        this.socket = new ServerSocket(port);
+        this.acceptorThread = acceptor.start(this);
     }
 
     public void close() {
@@ -61,6 +66,12 @@ public class Server {
         disconnectedClients.forEach(this::disconnect);
     }
 
+    public void connect(Client client) {
+        Logger.info("{} has connected to the server", client);
+        clients.add(client);
+        eventBus.post(new ClientConnectedEvent(this, client));
+    }
+
     public void removeDisconnectedClients() {
         List<Client> disconnectedClients = new ArrayList<>();
 
@@ -86,6 +97,11 @@ public class Server {
         Logger.info("Disconnecting client {} from {}", client, this);
         client.disconnect();
         clients.remove(client);
+        eventBus.post(new ClientDisconnectedEvent(this, client));
+    }
+
+    public EventBus getEventBus() {
+        return eventBus;
     }
 
     public boolean isOpen() {
