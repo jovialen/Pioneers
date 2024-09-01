@@ -1,11 +1,11 @@
 package com.github.jovialen.pioneers.networking.client;
 
+import com.github.jovialen.pioneers.networking.packet.Packet;
+import com.github.jovialen.pioneers.networking.packet.PacketInputStream;
+import com.github.jovialen.pioneers.networking.packet.PacketOutputStream;
 import org.tinylog.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -13,16 +13,16 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class Client {
     private final Socket socket;
-    private final BufferedReader reader;
-    private final PrintWriter writer;
+    private final PacketInputStream reader;
+    private final PacketOutputStream writer;
 
-    private final LinkedBlockingDeque<String> incoming = new LinkedBlockingDeque<>();
+    private final LinkedBlockingDeque<Packet> incoming = new LinkedBlockingDeque<>();
     private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
 
     public Client(Socket socket) throws IOException {
         this.socket = socket;
-        this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.writer = new PrintWriter(socket.getOutputStream(), true);
+        this.reader = new PacketInputStream(socket.getInputStream());
+        this.writer = new PacketOutputStream(socket.getOutputStream());
 
         primeReadPacket();
     }
@@ -39,12 +39,12 @@ public class Client {
         }
     }
 
-    public void send(String packet) {
+    public void send(Packet packet) {
         Logger.trace("Sending packet {}", packet);
         executor.submit(() -> { writePacket(packet); });
     }
 
-    public String receive() {
+    public Packet receive() {
         return incoming.poll();
     }
 
@@ -56,7 +56,7 @@ public class Client {
         return socket;
     }
 
-    public LinkedBlockingDeque<String> getIncoming() {
+    public LinkedBlockingDeque<Packet> getIncoming() {
         return incoming;
     }
 
@@ -83,7 +83,7 @@ public class Client {
 
     private void readPacket() {
         try {
-            String packet = reader.readLine();
+            Packet packet = reader.readPacket();
             incoming.add(packet);
 
             primeReadPacket();
@@ -97,7 +97,12 @@ public class Client {
         }
     }
 
-    private void writePacket(String packet) {
-        writer.println(packet);
+    private void writePacket(Packet packet) {
+        try {
+            writer.writePacket(packet);
+        } catch (IOException e) {
+            Logger.error("Failed to send packet through {}: {}", this, e);
+            disconnect();
+        }
     }
 }

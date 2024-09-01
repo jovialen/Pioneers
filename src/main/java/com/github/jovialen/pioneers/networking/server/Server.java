@@ -1,6 +1,7 @@
 package com.github.jovialen.pioneers.networking.server;
 
 import com.github.jovialen.pioneers.networking.client.Client;
+import com.github.jovialen.pioneers.networking.packet.Packet;
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -41,16 +42,47 @@ public class Server {
         }
     }
 
-    public void broadcast(String packet) {
+    public void broadcast(Packet packet) {
         broadcastExcept(null, packet);
     }
 
-    public void broadcastExcept(Client except, String packet) {
+    public void broadcastExcept(Client except, Packet packet) {
+        List<Client> disconnectedClients = new ArrayList<>();
+
         for (Client client : clients) {
+            if (!client.isConnected()) {
+                disconnectedClients.add(client);
+                continue;
+            }
+
             if (client != except) {
                 client.send(packet);
             }
         }
+
+        Logger.debug("Removing disconnected clients");
+        disconnectedClients.forEach(this::disconnect);
+    }
+
+    public void removeDisconnectedClients() {
+        List<Client> disconnectedClients = new ArrayList<>();
+
+        for (Client client : clients) {
+            if (!client.isConnected()) {
+                disconnectedClients.add(client);
+            }
+        }
+
+        if (!disconnectedClients.isEmpty()) {
+            Logger.debug("Removing {} disconnected clients", disconnectedClients.size());
+            disconnectedClients.forEach(this::disconnect);
+        }
+    }
+
+    public void disconnect(Client client) {
+        Logger.info("Disconnecting client {} from {}", client, this);
+        client.disconnect();
+        clients.remove(client);
     }
 
     public boolean isOpen() {
