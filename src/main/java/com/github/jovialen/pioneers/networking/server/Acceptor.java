@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public abstract class Acceptor {
     public Thread start(Server server) {
-        Thread thread = new Thread(() -> { run(server); });
+        Thread thread = new Thread(() -> run(server));
         thread.start();
         return thread;
     }
@@ -21,11 +21,12 @@ public abstract class Acceptor {
                 Client connectingClient = new Client(remote);
 
                 Logger.debug("{} is attempting to connect to the server", connectingClient);
-                if (acceptClient(connectingClient)) {
+                if (authenticateClient(connectingClient)) {
                     Logger.info("{} has connected to the server", connectingClient);
                     server.getClients().add(connectingClient);
                 } else {
                     Logger.warn("Client was refused");
+                    connectingClient.disconnect();
                 }
             } catch (IOException e) {
                 Logger.warn("Failed to accept client for server {}: {}", server, e);
@@ -34,5 +35,6 @@ public abstract class Acceptor {
         Logger.debug("No longer waiting for clients to connect to the server");
     }
 
-    public abstract boolean acceptClient(Client client);
+    public abstract boolean authenticateClient(Client client);
+    public abstract boolean authenticateServer(Client client);
 }

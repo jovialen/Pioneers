@@ -24,10 +24,7 @@ public class Server {
     public void close() {
         Logger.info("Closing server {}", this);
 
-        for (Client client : clients) {
-            client.disconnect();
-        }
-        clients.clear();
+        disconnectAll();
 
         try {
             socket.close();
@@ -77,6 +74,12 @@ public class Server {
             Logger.debug("Removing {} disconnected clients", disconnectedClients.size());
             disconnectedClients.forEach(this::disconnect);
         }
+    }
+
+    public void disconnectAll() {
+        Logger.info("Disconnecting all clients from the {}", this);
+        clients.forEach(Client::disconnect);
+        clients.clear();
     }
 
     public void disconnect(Client client) {

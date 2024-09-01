@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: create basic echo server">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/encoder/Encoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/encoder/ObjectEncoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/encoder/StringEncoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/packet/Packet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/packet/PacketInputStream.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/packet/PacketOutputStream.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/SecureAcceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/client/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/client/EchoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/client/EchoClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/Acceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/Acceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/EchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/EchoServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/UnsecureAcceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/networking/server/UnsecureAcceptor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -3,13 +3,16 @@ package com.github.jovialen.pioneers.networking.client;
 import com.github.jovialen.pioneers.networking.packet.Packet;
 import com.github.jovialen.pioneers.networking.packet.PacketInputStream;
 import com.github.jovialen.pioneers.networking.packet.PacketOutputStream;
+import com.github.jovialen.pioneers.networking.server.Acceptor;
 import org.tinylog.Logger;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
     private final Socket socket;
@@ -41,11 +44,21 @@ public class Client {
 
     public void send(Packet packet) {
         Logger.trace("Sending packet {}", packet);
-        executor.submit(() -> { writePacket(packet); });
+        executor.submit(() -> writePacket(packet));
     }
 
     public Packet receive() {
         return incoming.poll();
+    }
+
+    public Packet receive(Duration timeout) {
+        try {
+            Logger.trace("Waiting {} nanoseconds to receive packet", timeout.toNanos());
+            return incoming.poll(timeout.toNanos(), TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            Logger.warn("Operation timed out while waiting to receive a packet from {}", this);
+            return null;
+        }
     }
 
     public boolean isConnected() {
@@ -65,11 +78,18 @@ public class Client {
         return "Client(" + socket.getRemoteSocketAddress().toString() + ")";
     }
 
-    public static Client connectToServer(String host, int port) {
+    public static Client connectToServer(String host, int port, Acceptor acceptor) {
         try {
             Logger.info("Attempting to connect to server at {}:{}", host, port);
-            Socket socket = new Socket(host, port);
-            return new Client(socket);
+            Client client = new Client(new Socket(host, port));
+            if (acceptor.authenticateServer(client)) {
+                Logger.info("Connection was successful.");
+                return client;
+            } else {
+                Logger.error("Failed to authenticate the client to the server. Connection was refused.");
+                client.disconnect();
+                return null;
+            }
         } catch (IOException e) {
             Logger.error("Failed to connect to server at {}:{}: {}", host, port, e);
             return null;

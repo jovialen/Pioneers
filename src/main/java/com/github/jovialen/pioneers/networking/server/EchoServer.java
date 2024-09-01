@@ -9,7 +9,7 @@ import java.time.Duration;
 
 public class EchoServer {
     public static void main(String[] args) throws IOException, InterruptedException {
-        Server server = new Server(8181, new UnsecureAcceptor());
+        Server server = new Server(8181, new SecureAcceptor("password"));
         StringEncoder encoder = new StringEncoder();
 
         System.out.println("Waiting for clients to connect to the server");
