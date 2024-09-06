@@ -6,7 +6,7 @@ import org.tinylog.Logger;
 import java.io.*;
 
 public class ObjectEncoder extends Encoder<Object[]> {
-    private record ObjectPacketHeader(int count) {}
+    private record ObjectPacketHeader(int count) implements Serializable {}
 
     @Override
     protected Packet encodePacket(Object... data) {
@@ -27,7 +27,7 @@ public class ObjectEncoder extends Encoder<Object[]> {
                 outputStream.writeObject(object);
             }
         } catch (IOException e) {
-            Logger.error("Failed to encode object");
+            Logger.error("Failed to encode object. Is the object serializable?");
             return null;
         }
 

@@ -1,6 +1,8 @@
 package com.github.jovialen.pioneers.demo.echo;
 
+import com.github.jovialen.pioneers.engine.networking.auth.CompoundAuthenticator;
 import com.github.jovialen.pioneers.engine.networking.auth.PasswordAuthenticator;
+import com.github.jovialen.pioneers.engine.networking.auth.VersionAuthenticator;
 import com.github.jovialen.pioneers.engine.networking.client.Client;
 import com.github.jovialen.pioneers.engine.networking.encoder.StringEncoder;
 import com.github.jovialen.pioneers.engine.networking.event.PacketReceivedEvent;
@@ -26,7 +28,7 @@ public class EchoClient {
         String password = reader.readLine();
 
         this.encoder = new StringEncoder();
-        this.client = Client.connectToServer(host, port, eventBus, new PasswordAuthenticator(password));
+        this.client = Client.connectToServer(host, port, eventBus, new CompoundAuthenticator(new PasswordAuthenticator(password), new VersionAuthenticator((short) 1, (short) 0, (short) 0)));
     }
 
     public void disconnect() throws IOException {

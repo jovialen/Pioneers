@@ -1,6 +1,6 @@
 package com.github.jovialen.pioneers.engine.networking.server;
 
-import com.github.jovialen.pioneers.engine.networking.auth.PasswordAuthenticator;
+import com.github.jovialen.pioneers.engine.networking.auth.Authenticator;
 import com.github.jovialen.pioneers.engine.networking.client.Client;
 import com.github.jovialen.pioneers.engine.networking.event.ClientConnectedEvent;
 import com.github.jovialen.pioneers.engine.networking.event.ClientDisconnectedEvent;
@@ -19,7 +19,7 @@ public class Server {
     private final List<Client> clients = new ArrayList<>();
     private final Acceptor acceptor;
 
-    public Server(int port, EventBus eventBus, PasswordAuthenticator auth) throws IOException {
+    public Server(int port, EventBus eventBus, Authenticator auth) throws IOException {
         Logger.info("Opening server on port {}", port);
         this.eventBus = eventBus;
         this.socket = new ServerSocket(port);

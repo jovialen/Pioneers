@@ -48,7 +48,7 @@ public class PasswordAuthenticator implements Authenticator {
         }
 
         // Receive hash from client
-        Packet clientHash = client.receive(Duration.ofSeconds(1));
+        Packet clientHash = client.receive(Duration.ofMillis(500));
         if (clientHash == null) {
             Logger.error("Client failed to provide a valid response in time");
             return false;
@@ -66,7 +66,7 @@ public class PasswordAuthenticator implements Authenticator {
         Packet packet;
 
         // Receive salt
-        packet = client.receive(Duration.ofSeconds(1));
+        packet = client.receive(Duration.ofMillis(500));
         if (packet == null) {
             Logger.error("Server did not provide a salt for authentication in time.");
             return false;
@@ -80,7 +80,7 @@ public class PasswordAuthenticator implements Authenticator {
         client.send(new Packet(hash));
 
         // Confirm if server authenticated us
-        packet = client.receive(Duration.ofSeconds(1));
+        packet = client.receive(Duration.ofMillis(500));
         if (packet == null) {
             Logger.error("Server did not confirm if authentication succeeded. Assuming fail.");
             return false;

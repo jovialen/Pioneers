@@ -1,6 +1,8 @@
 package com.github.jovialen.pioneers.demo.echo;
 
+import com.github.jovialen.pioneers.engine.networking.auth.CompoundAuthenticator;
 import com.github.jovialen.pioneers.engine.networking.auth.PasswordAuthenticator;
+import com.github.jovialen.pioneers.engine.networking.auth.VersionAuthenticator;
 import com.github.jovialen.pioneers.engine.networking.encoder.StringEncoder;
 import com.github.jovialen.pioneers.engine.networking.event.ClientConnectedEvent;
 import com.github.jovialen.pioneers.engine.networking.event.ClientDisconnectedEvent;
@@ -29,7 +31,7 @@ public class EchoServer {
         String password = reader.readLine();
         Logger.info("Using password: {}", password);
 
-        server = new Server(8181, eventBus, new PasswordAuthenticator(password));
+        server = new Server(8181, eventBus, new CompoundAuthenticator(new PasswordAuthenticator(password), new VersionAuthenticator((short) 1, (short) 0, (short) 0)));
         encoder = new StringEncoder();
     }
 
