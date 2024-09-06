@@ -58,6 +58,9 @@ public class PasswordAuthenticator implements Authenticator {
         // Inform client of authentication result
         client.send(new Packet(new byte[]{(byte) (validAuthentication ? 1 : 0)}));
 
+        if (!validAuthentication) {
+            Logger.error("Client has the wrong password");
+        }
         return validAuthentication;
     }
 
@@ -87,7 +90,12 @@ public class PasswordAuthenticator implements Authenticator {
         }
 
         byte[] response = packet.data;
-        return response.length == 1 && response[0] != 0;
+        boolean correctPassword = response.length == 1 && response[0] != 0;
+
+        if (!correctPassword) {
+            Logger.error("Incorrect password");
+        }
+        return correctPassword;
     }
 
     private byte[] hashPassword(byte[] salt) {

@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add server and client events">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/auth/CompoundAuthenticator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/auth/VersionAuthenticator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/demo/echo/EchoClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/demo/echo/EchoClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/demo/echo/EchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/demo/echo/EchoServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/auth/PasswordAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/auth/PasswordAuthenticator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/encoder/ObjectEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/encoder/ObjectEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/packet/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/packet/Packet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/packet/PacketInputStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/packet/PacketInputStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/packet/PacketOutputStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/packet/PacketOutputStream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/engine/networking/server/Server.java" afterDir="false" />
-    </list>
+    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add version authentication" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -179,7 +167,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725197695028</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat: add version authentication">
+      <option name="closed" value="true" />
+      <created>1725613477707</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1725613477707</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: add version authentication">
+      <option name="closed" value="true" />
+      <created>1725613486992</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1725613486992</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -199,6 +203,7 @@
     <MESSAGE value="feat: create basic echo server" />
     <MESSAGE value="feat: add basic password authentication" />
     <MESSAGE value="feat: add server and client events" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add server and client events" />
+    <MESSAGE value="feat: add version authentication" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add version authentication" />
   </component>
 </project>

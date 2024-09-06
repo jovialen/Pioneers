@@ -46,8 +46,13 @@ public class VersionAuthenticator implements Authenticator {
 
         // Check if the version matches
         boolean versionMatch = version.equals(clientVersion);
+
+        // Inform client of authentication result
         client.send(new Packet(new byte[]{(byte) (versionMatch ? 1 : 0)}));
 
+        if (!versionMatch) {
+            Logger.error("Client is running the wrong version");
+        }
         return versionMatch;
     }
 
@@ -63,6 +68,11 @@ public class VersionAuthenticator implements Authenticator {
         }
 
         byte[] response = packet.data;
-        return response.length == 1 && response[0] != 0;
+        boolean sameVersion = response.length == 1 && response[0] != 0;
+
+        if (!sameVersion) {
+            Logger.error("Client and server are running different versions");
+        }
+        return sameVersion;
     }
 }
