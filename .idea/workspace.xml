@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add version authentication" />
+    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add explanations to failed authentication">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,13 +59,13 @@
       <recent name="com.github.jovialen.pioneers.networking.event" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.EchoClient">
+  <component name="RunManager" selected="Application.PioneersApp">
     <configuration name="EchoClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.pioneers.demo.echo.EchoClient" />
+      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.engine.demo.echo.EchoClient" />
       <module name="Pioneers" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.jovialen.pioneers.demo.echo.*" />
+          <option name="PATTERN" value="com.github.jovialen.engine.demo.echo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -72,11 +74,11 @@
       </method>
     </configuration>
     <configuration name="EchoServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.pioneers.demo.echo.EchoServer" />
+      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.engine.demo.echo.EchoServer" />
       <module name="Pioneers" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.jovialen.pioneers.demo.echo.*" />
+          <option name="PATTERN" value="com.github.jovialen.engine.demo.echo.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -85,11 +87,11 @@
       </method>
     </configuration>
     <configuration name="PioneersApp" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.pioneers.app.PioneersApp" />
+      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.pioneers.core.PioneersApp" />
       <module name="Pioneers" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.github.jovialen.pioneers.app.*" />
+          <option name="PATTERN" value="com.github.jovialen.pioneers.core.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -104,9 +106,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PioneersApp" />
         <item itemvalue="Application.EchoClient" />
         <item itemvalue="Application.EchoServer" />
-        <item itemvalue="Application.PioneersApp" />
       </list>
     </recent_temporary>
   </component>
@@ -183,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725613486992</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: add explanations to failed authentication">
+      <option name="closed" value="true" />
+      <created>1725614038721</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1725614038721</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,7 +201,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -204,6 +226,7 @@
     <MESSAGE value="feat: add basic password authentication" />
     <MESSAGE value="feat: add server and client events" />
     <MESSAGE value="feat: add version authentication" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add version authentication" />
+    <MESSAGE value="feat: add explanations to failed authentication" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add explanations to failed authentication" />
   </component>
 </project>
