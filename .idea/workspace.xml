@@ -82,7 +82,7 @@
       <recent name="com.github.jovialen.pioneers.networking.event" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.EntityTest">
+  <component name="RunManager" selected="Application.PioneersApp">
     <configuration name="EchoClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.jovialen.engine.demo.echo.EchoClient" />
       <module name="Pioneers" />
@@ -161,9 +161,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.PioneersApp" />
         <item itemvalue="JUnit.EntityTest" />
         <item itemvalue="JUnit.RegisterTest" />
-        <item itemvalue="Application.PioneersApp" />
         <item itemvalue="Application.EchoClient" />
         <item itemvalue="Application.EchoServer" />
       </list>
