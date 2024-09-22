@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add flecs based ecs">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/Family.java" afterDir="false" />
+    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="fix: make different objects of same entity be equal">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/jovialen/engine/ecs/RegisterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/github/jovialen/engine/ecs/entity/EntityTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/component/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/component/Table.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/EntityId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/EntityId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/tinylog.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/tinylog.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +27,7 @@
         <option value="Interface" />
         <option value="Record" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -44,29 +49,40 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Client.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EchoClient.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EchoServer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.PioneersApp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Server.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.github.jovialen.pioneers.demo.echo.EchoServer.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/nicolai/Development/Java/pioneers&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Client.executor": "Run",
+    "Application.EchoClient.executor": "Run",
+    "Application.EchoServer.executor": "Run",
+    "Application.PioneersApp.executor": "Run",
+    "Application.Server.executor": "Run",
+    "Application.com.github.jovialen.pioneers.demo.echo.EchoServer.executor": "Run",
+    "JUnit.EntityTest.executor": "Run",
+    "JUnit.RegisterTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/nicolai/Development/Java/pioneers",
+    "settings.editor.selected.configurable": "terminal"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.github.jovialen.engine.ecs.entity" />
+      <recent name="com.github.jovialen.engine.ecs" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.github.jovialen.pioneers.networking.event" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PioneersApp">
+  <component name="RunManager" selected="JUnit.EntityTest">
     <configuration name="EchoClient" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.github.jovialen.engine.demo.echo.EchoClient" />
       <module name="Pioneers" />
@@ -106,13 +122,47 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EntityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Pioneers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.jovialen.engine.ecs.entity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.jovialen.engine.ecs.entity" />
+      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.engine.ecs.entity.EntityTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RegisterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Pioneers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.jovialen.engine.ecs.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.jovialen.engine.ecs" />
+      <option name="MAIN_CLASS_NAME" value="com.github.jovialen.engine.ecs.RegisterTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.EchoServer" />
       <item itemvalue="Application.EchoClient" />
       <item itemvalue="Application.PioneersApp" />
+      <item itemvalue="JUnit.EntityTest" />
+      <item itemvalue="JUnit.RegisterTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.EntityTest" />
+        <item itemvalue="JUnit.RegisterTest" />
         <item itemvalue="Application.PioneersApp" />
         <item itemvalue="Application.EchoClient" />
         <item itemvalue="Application.EchoServer" />
@@ -224,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727033569673</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="fix: make different objects of same entity be equal">
+      <option name="closed" value="true" />
+      <created>1727033925696</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1727033925696</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -259,6 +317,7 @@
     <MESSAGE value="feat: add version authentication" />
     <MESSAGE value="feat: add explanations to failed authentication" />
     <MESSAGE value="feat: add flecs based ecs" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add flecs based ecs" />
+    <MESSAGE value="fix: make different objects of same entity be equal" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: make different objects of same entity be equal" />
   </component>
 </project>

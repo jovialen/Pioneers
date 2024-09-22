@@ -31,6 +31,12 @@ public class Table {
     }
 
     public int newRow() {
+        // Check if the table has any columns
+        if (table.isEmpty()) {
+            // ...If not, return the dummy row
+            return -1;
+        }
+
         // Create rows
         int pseudoRow = nextRow++;
         int tableRow = table.getFirst().size();

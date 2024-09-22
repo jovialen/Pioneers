@@ -6,12 +6,15 @@ import com.github.jovialen.engine.ecs.entity.EntityId;
 import com.github.jovialen.engine.ecs.entity.EntityRegister;
 import com.github.jovialen.engine.ecs.entity.EntityType;
 import org.tinylog.Logger;
+import org.tinylog.TaggedLogger;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
 public class Register {
+    public final static TaggedLogger LOGGER = Logger.tag("ecs");
+
     private final Archetype EMPTY_ARCHETYPE = new Archetype(new EntityType(new HashSet<>()));
 
     private final EntityRegister entityRegister = new EntityRegister();
@@ -87,7 +90,7 @@ public class Register {
     }
 
     public void addComponent(EntityId entityId, Object component) {
-        Logger.trace("Adding {} to {}", component, entityId);
+        LOGGER.trace("Adding {} to {}", component, entityId);
 
         // Get the current archetype of the entity
         EntityRecord entityRecord = entityMap.get(entityId);
@@ -157,7 +160,7 @@ public class Register {
         // Check if the next archetype is cached
         if (archetypeEdge.getAddArchetype() == null) {
             // ...If not then
-            Logger.trace("Finding archetype of {} with component {}", archetype, componentType);
+            LOGGER.trace("Finding archetype of {} with component {}", archetype, componentType);
 
             // Create the entity type of the desired next archetype
             EntityType entityType = new EntityType(new HashSet<>(archetype.type().components()));
@@ -187,7 +190,7 @@ public class Register {
         // Check if the next archetype is cached
         if (archetypeEdge.getRemoveArchetype() == null) {
             // ...If not then
-            Logger.trace("Finding archetype of {} without component {}", archetype, componentType);
+            LOGGER.trace("Finding archetype of {} without component {}", archetype, componentType);
 
             // Create the entity type of the desired next archetype
             EntityType entityType = new EntityType(new HashSet<>(archetype.type().components()));
@@ -210,7 +213,7 @@ public class Register {
     }
 
     private int moveEntity(Archetype oldArchetype, int oldRow, Archetype nextArchetype) {
-        Logger.trace("Moving row {} of table from {} to {}", oldRow, oldArchetype, nextArchetype);
+        LOGGER.trace("Moving row {} of table from {} to {}", oldRow, oldArchetype, nextArchetype);
 
         // Create a new entry in the table of the next archetype
         Table oldTable = oldArchetype.table();
@@ -220,7 +223,7 @@ public class Register {
 
         // And for every component in the next archetype
         for (Class<?> componentType : nextArchetype.type().components()) {
-            Logger.trace("Copying {} from {} to {}", componentType, oldArchetype, nextArchetype);
+            LOGGER.trace("Copying {} from {} to {}", componentType, oldArchetype, nextArchetype);
 
             // Get the archetype records for the component
             Map<Archetype, ArchetypeRecord> archetypes = componentMap.get(componentType);
@@ -231,7 +234,7 @@ public class Register {
             // Check if the component exists in the old archetype
             if (!archetypes.containsKey(oldArchetype)) {
                 // If not, then just leave the slot empty.
-                Logger.trace("{} does not have component {}", oldArchetype, componentType);
+                LOGGER.trace("{} does not have component {}", oldArchetype, componentType);
                 continue;
             }
 
@@ -253,7 +256,7 @@ public class Register {
     private void registerArchetype(Archetype archetype) {
         // Check if the archetype is already registered
         if (archetypeMap.containsKey(archetype.type())) {
-            Logger.warn("Archetype already in the register");
+            LOGGER.warn("Archetype already in the register");
             return;
         }
 
@@ -274,7 +277,7 @@ public class Register {
             column++;
         }
 
-        Logger.trace("Registered archetype {}", archetype);
+        LOGGER.trace("Registered archetype {}", archetype);
     }
 
     private void registerComponent(Class<?> component) {
@@ -286,14 +289,14 @@ public class Register {
         // Register the component
         componentMap.put(component, new HashMap<>());
 
-        Logger.trace("Registered component {}", component);
+        LOGGER.trace("Registered component {}", component);
     }
 
     private void registerEntity(EntityId entityId) {
         // Put the entity in the empty archetype
         entityMap.put(entityId, new EntityRecord(EMPTY_ARCHETYPE, -1));
 
-        Logger.trace("Registered entity {}", Integer.toHexString(entityId.id()));
+        LOGGER.trace("Registered entity {}", Integer.toHexString(entityId.id()));
     }
 
     private void unregisterEntity(EntityId entityId) {
