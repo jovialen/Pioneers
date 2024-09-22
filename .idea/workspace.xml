@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add flecs based ecs">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/core/PioneersApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/core/PioneersApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/Family.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/EntityId.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/engine/ecs/entity/EntityId.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +28,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -210,7 +216,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727033498453</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: add flecs based ecs">
+      <option name="closed" value="true" />
+      <created>1727033569673</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1727033569673</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

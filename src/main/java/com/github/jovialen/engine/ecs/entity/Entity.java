@@ -2,6 +2,8 @@ package com.github.jovialen.engine.ecs.entity;
 
 import com.github.jovialen.engine.ecs.Register;
 
+import java.util.Objects;
+
 public class Entity {
     private final Register register;
     private final EntityId entityId;
@@ -41,6 +43,19 @@ public class Entity {
 
     public String getName() {
         return (String) register.getComponent(entityId, String.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entity entity = (Entity) o;
+        return Objects.equals(register, entity.register) && Objects.equals(entityId, entity.entityId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(register, entityId);
     }
 
     @Override
