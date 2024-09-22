@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add explanations to failed authentication">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5d4402a5-a15c-4c3c-8aa5-7849559953c3" name="Changes" comment="feat: add flecs based ecs">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/core/PioneersApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/jovialen/pioneers/core/PioneersApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +18,7 @@
         <option value="Enum" />
         <option value="package-info" />
         <option value="Interface" />
+        <option value="Record" />
         <option value="Class" />
       </list>
     </option>
@@ -193,7 +194,23 @@
       <option name="project" value="LOCAL" />
       <updated>1725614038721</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: add flecs based ecs">
+      <option name="closed" value="true" />
+      <created>1727033307745</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1727033307745</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: add flecs based ecs">
+      <option name="closed" value="true" />
+      <created>1727033498453</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1727033498453</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -227,6 +244,7 @@
     <MESSAGE value="feat: add server and client events" />
     <MESSAGE value="feat: add version authentication" />
     <MESSAGE value="feat: add explanations to failed authentication" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add explanations to failed authentication" />
+    <MESSAGE value="feat: add flecs based ecs" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add flecs based ecs" />
   </component>
 </project>
